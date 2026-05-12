@@ -4,8 +4,8 @@ import Title from "./Title";
 import ProductItem from "./ProductItem";
 
 const BestSeller = () => {
-  const { products } = useContext(ShopContext);
-  const bestSeller = products.filter((item) => item.bestseller).slice(0, 5);
+  const { products } = useContext(ShopContext); 
+  const bestSeller = products.filter((item) => item.bestseller).slice(0, 5); // item.bestseller === true
 
   return (
     <div className="my-10">
