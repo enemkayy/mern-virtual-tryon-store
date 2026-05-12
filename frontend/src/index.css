@@ -19,6 +19,10 @@ a.active hr {
   display: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 @media (max-width: 640px) {
   a.active {
     background-color: black;
