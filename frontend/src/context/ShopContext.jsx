@@ -35,9 +35,13 @@ const ShopContextProvider = (props) => {
 
   const getCartCount = () => {
     let totalCount = 0;
+
+    // Loop through the cartItems object to calculate the total count of items in the cart
     for (const items in cartItems) {
+      // Loop through each size of the item to calculate the total quantity for that item
       for (const item in cartItems[items]) {
         try {
+          // Add the quantity of the current size to the total count
           if (cartItems[items][item] > 0) {
             totalCount += cartItems[items][item];
           }
@@ -49,6 +53,13 @@ const ShopContextProvider = (props) => {
     return totalCount;
   };
 
+  const updateQuantity = async (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItems);
+
+    cartData[itemId][size] = quantity;
+    setCartItems(cartData);
+  };
+
   const value = {
     products,
     currency,
@@ -56,6 +67,7 @@ const ShopContextProvider = (props) => {
     cartItems,
     addToCart,
     getCartCount,
+    updateQuantity,
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/Context";
 import { assets } from "../assets/frontend_assets/assets";
@@ -7,23 +7,13 @@ import RelatedProducts from "../components/RelatedProducts";
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
-  const [image, setImage] = useState("");
+  const productData = products.find((item) => item._id === productId);
+  const [image, setImage] = useState(() => productData?.image[0] || "");
   const [size, setSize] = useState("");
 
-  const fetchProductData = async () => {
-    products.forEach((item) => {
-      if (item._id === productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        return null;
-      }
-    });
-  };
-
   useEffect(() => {
-    fetchProductData();
-  }, [productId, products]);
+    window.scrollTo(0, 0);
+  }, [productId]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -37,7 +27,7 @@ const Product = () => {
                 onClick={() => setImage(item)}
                 src={item}
                 key={index}
-                className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
+                className="w-[24%] sm:w-full sm:mb-3 shrink-0 cursor-pointer"
               />
             ))}
           </div>
