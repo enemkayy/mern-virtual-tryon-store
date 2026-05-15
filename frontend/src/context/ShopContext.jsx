@@ -2,11 +2,13 @@ import { ShopContext } from "./Context";
 import { products } from "../assets/frontend_assets/assets";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ShopContextProvider = (props) => {
   const currency = "$";
   const delivery_fee = 10;
   const [cartItems, setCartItems] = useState({});
+  const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -35,9 +37,13 @@ const ShopContextProvider = (props) => {
 
   const getCartCount = () => {
     let totalCount = 0;
+
+    // Loop through the cartItems object to calculate the total count of items in the cart
     for (const items in cartItems) {
+      // Loop through each size of the item to calculate the total quantity for that item
       for (const item in cartItems[items]) {
         try {
+          // Add the quantity of the current size to the total count
           if (cartItems[items][item] > 0) {
             totalCount += cartItems[items][item];
           }
@@ -49,6 +55,30 @@ const ShopContextProvider = (props) => {
     return totalCount;
   };
 
+  const updateQuantity = async (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItems);
+
+    cartData[itemId][size] = quantity;
+    setCartItems(cartData);
+  };
+
+  const getCartAmount = () => {
+    let totalAmount = 0;    
+    for (const items in cartItems) {
+      let itemInfo = products.find((product) => product._id === items);
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
+            totalAmount += cartItems[items][item] * itemInfo.price;
+          }
+        } catch (error) {
+          console.error("Error calculating cart amount:", error);
+        }
+      }
+    }
+    return totalAmount;
+  }
+
   const value = {
     products,
     currency,
@@ -56,6 +86,9 @@ const ShopContextProvider = (props) => {
     cartItems,
     addToCart,
     getCartCount,
+    updateQuantity,
+    getCartAmount,
+    navigate,
   };
 
   return (
