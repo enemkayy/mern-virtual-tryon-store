@@ -2,9 +2,10 @@ import React, { useContext, useMemo } from "react";
 import { ShopContext } from "../context/Context";
 import Title from "../components/Title";
 import { assets } from "../assets/frontend_assets/assets";
+import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity } =
+  const { products, currency, cartItems, updateQuantity, navigate } =
     useContext(ShopContext);
 
   // Convert cartItems object to an array of items with their details for easier rendering
@@ -42,7 +43,7 @@ const Cart = () => {
           return (
             <div
               key={`${item._id}-${item.size}-${index}`}
-              className="py-4 border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center"
+              className="py-4 border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
             >
               <div className="flex items-start gap-6">
                 <img
@@ -65,7 +66,7 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Quantity input and remove button */}
               <input
                 onChange={(e) =>
@@ -91,6 +92,20 @@ const Cart = () => {
             </div>
           );
         })}
+      </div>
+
+      <div className="flex justify-end mt-20">
+        <div className="w-full sm:w-112.5">
+          <CartTotal />
+          <div className="w-full text-end">
+            <button
+              onClick={() => navigate("/place-order")}
+              className="bg-black text-white text-sm my-8 px-8 py-3"
+            >
+              PROCEED TO CHECKOUT
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
