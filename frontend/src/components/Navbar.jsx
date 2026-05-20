@@ -6,6 +6,8 @@ import { ShopContext } from "../context/Context";
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
 
+  const {setShowSearch} = useContext(ShopContext);
+
   const {getCartCount} = useContext(ShopContext);
 
   return (
@@ -32,9 +34,10 @@ const Navbar = () => {
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
       </ul>
-
+    
       <div className="flex items-center gap-6">
         <img
+          onClick={() => setShowSearch(true)}
           src={assets.search_icon}
           className="w-5 cursor-pointer"
           alt="search"
