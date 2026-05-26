@@ -10,29 +10,27 @@ const createToken = (id) => {
 
 // Route for user login
 const loginUser = async (req, res) => {
-    try {
-        
-        const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-        const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ email });
 
-        if (!user) {
-            return res.json({ success: false, message: "User doesn't exist" });
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-
-        if (isMatch) {
-            const token = createToken(user._id);
-            res.json({ success: true, token }); 
-        } else {
-            res.json({ success: false, message: "Invalid credentials" });
-        }
-
-    } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+    if (!user) {
+      return res.json({ success: false, message: "User doesn't exist" });
     }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.json({ success: true, token });
+    } else {
+      res.json({ success: false, message: "Invalid credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 
 // Route for user registration
@@ -78,7 +76,6 @@ const registerUser = async (req, res) => {
 
     // Sending the token back to the client
     res.json({ success: true, token });
-
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -86,6 +83,26 @@ const registerUser = async (req, res) => {
 };
 
 // Route for admin login
-const adminLogin = async (req, res) => {};
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      // Generate a token for the admin user, the purpose of this token is to authenticate the admin user in subsequent requests
+      // to protected routes that require admin privileges.
+      // The token can be used to verify the identity of the admin user and grant access to admin-only features or resources.
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      res.json({ success: true, token });
+    } else {
+      res.json({ success: false, message: "Invalid admin credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 export { loginUser, registerUser, adminLogin };
