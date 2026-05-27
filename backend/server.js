@@ -11,7 +11,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // Middlewares (functions that run before the route handlers)
+
+// Parse JSON bodies (as sent by API clients) and make it available in req.body
 app.use(express.json());
+
+// Enable CORS (Cross-Origin Resource Sharing) to allow requests from different origins (e.g., frontend running on a different port)
 app.use(cors());
 
 // API Endpoints (Route handlers)
