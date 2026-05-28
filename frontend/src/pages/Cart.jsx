@@ -40,6 +40,10 @@ const Cart = () => {
             (product) => product._id === item._id,
           );
 
+          if (!productData) {
+            return null;
+          }
+
           return (
             <div
               key={`${item._id}-${item.size}-${index}`}
@@ -47,7 +51,7 @@ const Cart = () => {
             >
               <div className="flex items-start gap-6">
                 <img
-                  src={productData.image[0]}
+                  src={productData.image?.[0] || ""}
                   alt={productData.name}
                   className="w-16 sm:w-20"
                 />

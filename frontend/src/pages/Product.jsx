@@ -8,7 +8,7 @@ const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
   const productData = products.find((item) => item._id === productId);
-  const [image, setImage] = useState(() => productData?.image[0] || "");
+  const [image, setImage] = useState("");
   const [size, setSize] = useState("");
 
   useEffect(() => {
@@ -31,8 +31,13 @@ const Product = () => {
               />
             ))}
           </div>
+          {/* Product Main Image */}
           <div className="w-full sm:w-[80%]">
-            <img className="w-full h-auto" src={image} alt="" />
+            <img
+              className="w-full h-auto"
+              src={image || productData.image[0]}
+              alt=""
+            />
           </div>
         </div>
 
