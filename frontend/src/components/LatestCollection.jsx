@@ -5,7 +5,9 @@ import ProductItem from "./ProductItem";
 
 const LatestCollection = () => {
   const { products } = useContext(ShopContext);
-  const latestProducts = products.slice(0, 10);
+  const latestProducts = [...products]
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 10);
 
   return (
     <div className="my-10">
