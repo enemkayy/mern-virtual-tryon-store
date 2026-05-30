@@ -113,6 +113,7 @@ const ShopContextProvider = (props) => {
     return totalAmount;
   };
 
+  // Fetch products data from the backend when the component mounts
   useEffect(() => {
     const getProductsData = async () => {
       try {
@@ -167,6 +168,7 @@ const ShopContextProvider = (props) => {
     setShowSearch,
     cartItems,
     addToCart,
+    setCartItems,
     getCartCount,
     updateQuantity,
     getCartAmount,
