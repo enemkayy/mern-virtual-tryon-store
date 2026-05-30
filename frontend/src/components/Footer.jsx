@@ -9,6 +9,9 @@ const Footer = () => {
           <img src={assets.logo} className="mb-5 w-32" alt="Logo" />
           <p className="w-full md:w-2/3 text-gray-600">
             Discover your style with AVARA where fashion meets innovation.
+            Experience the future of shopping with our virtual try-on
+            technology. Shop now and redefine your wardrobe with confidence and
+            convenience.
           </p>
         </div>
 
