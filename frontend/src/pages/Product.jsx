@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/Context";
 import { assets } from "../assets/frontend_assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
+import VirtualTryOn from "../components/VirtualTryOn";
 
 const Product = () => {
   const { productId } = useParams();
@@ -74,13 +75,16 @@ const Product = () => {
             </div>
           </div>
 
-          {/* Add to cart button */}
-          <button
-            onClick={() => addToCart(productData._id, size)}
-            className="bg-black text-white py-3 px-8 text-sm active:bg-gray-700"
-          >
-            ADD TO CART
-          </button>
+          {/* Add to cart + Virtual Try-On buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-0">
+            <button
+              onClick={() => addToCart(productData._id, size)}
+              className="bg-black text-white py-3 px-8 text-sm active:bg-gray-700"
+            >
+              ADD TO CART
+            </button>
+            <VirtualTryOn product={productData} />
+          </div>
           <hr className="mt-8 sm:w-4/5" />
           <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% Original product.</p>
