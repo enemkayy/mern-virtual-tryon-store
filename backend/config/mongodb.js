@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import dns from "node:dns/promises";
+
+// Set custom DNS servers to avoid potential DNS resolution issues
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const connectDB = async () => {
   mongoose.connection.on("connected", () => {
