@@ -8,6 +8,7 @@ import Orders from "./pages/Orders";
 import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
 
+
 const App = () => {
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : "",
@@ -24,7 +25,7 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <>
-          <Navbar />
+          <Navbar setToken={setToken} />
           <hr />
           <div className="flex w-full">
             <Sidebar />
