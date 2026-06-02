@@ -2,7 +2,7 @@
 
 A full-stack e-commerce web application built with the **MERN stack** (MongoDB, Express.js, React, Node.js), featuring an AI-powered **Virtual Try-On** system powered by the [Kwai-Kolors/Kolors-Virtual-Try-On](https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On) HuggingFace Space — completely **free**, no API key required.
 
-### 🔗 Live Demos
+<img src="https://img.shields.io/badge/Live_Demo-green?style=for-the-badge&logo=render" alt="Live Demo" />
 * 🛒 **Customer Storefront:** [avara-shop.vercel.app](https://avara-shop.vercel.app/)
 * 🔧 **Admin Panel:** [admin-avara-shop.vercel.app/list](https://admin-avara-shop.vercel.app/list)
 
