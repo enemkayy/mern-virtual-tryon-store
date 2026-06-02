@@ -19,3 +19,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 !.env.sample
+
+ARCHITECTURE.md
+CLASS_DIAGRAM.md
+DATABASE_ERD.md
+RELATIONAL_SCHEMA.md
+SEQUENCE_DIAGRAMS.md
+USE_CASE_DIAGRAM.md

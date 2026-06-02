@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../config'
 import { toast } from 'react-toastify'
-
-
 
 
 const List = ({ token }) => {
@@ -45,7 +42,22 @@ const List = ({ token }) => {
   }
 
   useEffect(() => {
-    fetchList();
+    const loadList = async () => {
+      try {
+        const response = await axios.get(backendUrl + '/api/product/list')
+
+        if (response.data.success) {
+          setList(response.data.products);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
+
+    loadList();
   }, [])
 
   return (

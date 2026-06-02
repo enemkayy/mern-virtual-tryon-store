@@ -91,8 +91,8 @@ const VirtualTryOn = ({ product }) => {
           token,
           "Content-Type": "multipart/form-data",
         },
-        // CatVTON inference can take ~30-60s, increase timeout
-        timeout: 120000,
+        // HuggingFace free tier có thể mất 1-5 phút, tăng timeout lên 5 phút
+        timeout: 300000,
       });
 
       if (response.data.success) {

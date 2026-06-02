@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { Client, handle_file } from "@gradio/client";
+import fs from "fs";
 
 // HuggingFace Space: Kwai-Kolors/Kolors-Virtual-Try-On
 const HF_SPACE   = "Kwai-Kolors/Kolors-Virtual-Try-On";
@@ -52,6 +53,13 @@ const tryOn = async (req, res) => {
     } catch (err) {
       console.error("[TryOn] Cloudinary upload error:", err);
       return res.json({ success: false, message: "Failed to upload your photo. Please try again." });
+    } finally {
+      // Xóa file tạm trên disk sau khi upload xong (tránh tốn dung lượng server)
+      if (req.file?.path) {
+        fs.unlink(req.file.path, (err) => {
+          if (err) console.warn("[TryOn] Could not delete temp file:", req.file.path);
+        });
+      }
     }
 
     // 3. Detect cloth type
