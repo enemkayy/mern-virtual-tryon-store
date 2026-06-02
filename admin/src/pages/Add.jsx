@@ -45,19 +45,17 @@ const Add = ({ token }) => {
       image4 && formData.append("image4", image4);
 
       const endpoint = productId ? "/api/product/update" : "/api/product/add";
-      const response = await axios.post(
-        backendUrl + endpoint,
-        formData,
-        { headers: { token } },
-      );
+      const response = await axios.post(backendUrl + endpoint, formData, {
+        headers: { token },
+      });
 
       if (response.data.success) {
         toast.success(response.data.message);
         if (productId) {
-          // Sau khi edit xong → quay lại trang danh sách
+          // After editing existing product → navigate back to list page
           navigate("/list");
         } else {
-          // Sau khi add mới → reset form
+          // After adding new product → reset form
           setName("");
           setDescription("");
           setImage1(false);
@@ -81,10 +79,9 @@ const Add = ({ token }) => {
 
     const loadProduct = async () => {
       try {
-        const resp = await axios.post(
-          backendUrl + "/api/product/single",
-          { productId },
-        );
+        const resp = await axios.post(backendUrl + "/api/product/single", {
+          productId,
+        });
         if (resp.data.success) {
           const p = resp.data.product;
           setName(p.name || "");
