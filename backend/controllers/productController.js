@@ -91,4 +91,59 @@ const singleProduct = async (req, res) => {
   }
 };
 
-export { addProduct, listProducts, removeProduct, singleProduct };
+// Function for updating a product
+const updateProduct = async (req, res) => {
+  try {
+    const {
+      productId,
+      name,
+      description,
+      price,
+      category,
+      subCategory,
+      sizes,
+      bestseller,
+    } = req.body;
+
+    const product = await productModel.findById(productId);
+    if (!product) return res.json({ success: false, message: "Product not found" });
+
+    const image1 = req.files?.image1 && req.files.image1[0];
+    const image2 = req.files?.image2 && req.files.image2[0];
+    const image3 = req.files?.image3 && req.files.image3[0];
+    const image4 = req.files?.image4 && req.files.image4[0];
+
+    const images = [image1, image2, image3, image4].filter((img) => img !== undefined);
+
+    let imagesUrl = [];
+    if (images.length > 0) {
+      imagesUrl = await Promise.all(
+        images.map(async (image) => {
+          let result = await cloudinary.uploader.upload(image.path, {
+            resource_type: "image",
+          });
+          return result.secure_url;
+        }),
+      );
+    }
+
+    // Update fields
+    product.name = name || product.name;
+    product.description = description || product.description;
+    product.category = category || product.category;
+    product.subCategory = subCategory || product.subCategory;
+    product.price = price ? Number(price) : product.price;
+    product.bestseller = typeof bestseller !== "undefined" ? (bestseller === "true" ? true : false) : product.bestseller;
+    product.sizes = sizes ? JSON.parse(sizes) : product.sizes;
+    if (imagesUrl.length > 0) product.image = imagesUrl;
+
+    await product.save();
+
+    res.json({ success: true, message: "Product updated successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { addProduct, listProducts, removeProduct, singleProduct, updateProduct };

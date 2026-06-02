@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../config'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 
@@ -45,7 +46,6 @@ const List = ({ token }) => {
     const loadList = async () => {
       try {
         const response = await axios.get(backendUrl + '/api/product/list')
-
         if (response.data.success) {
           setList(response.data.products);
         } else {
@@ -56,7 +56,6 @@ const List = ({ token }) => {
         toast.error(error.message);
       }
     }
-
     loadList();
   }, [])
 
@@ -84,7 +83,10 @@ const List = ({ token }) => {
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p>{currency}{item.price}</p>
-              <p onClick={() => removeProduct(item._id)} className="text-right md:text-center cursor-pointer text-lg">X</p>
+              <div className="text-right md:text-center">
+                <Link to={`/add?id=${item._id}`} className="mr-3 cursor-pointer text-lg">Edit</Link>
+                <span onClick={() => removeProduct(item._id)} className="cursor-pointer text-lg">X</span>
+              </div>
             </div>
           ))
         }
