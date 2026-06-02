@@ -4,7 +4,7 @@ A full-stack e-commerce web application built with the **MERN stack** (MongoDB, 
 
 ### 🔗 Live Demos
 * 🛒 **Customer Storefront:** [avara-shop.vercel.app](https://avara-shop.vercel.app/)
-* 🔧 **Admin Panel:** [admin-avara-shop.vercel.app/list](https://admin-avara-shop.vercel.app/list)
+* 🔧 **Admin Panel:** [admin-avara-shop.vercel.app/list](https://admin-avara-shop.vercel.app/)
 
 <p align="center">
   <img src="./frontend/public/avara_homepage.png" alt="Avara Home Page" width="100%">
