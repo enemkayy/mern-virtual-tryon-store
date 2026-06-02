@@ -383,7 +383,7 @@ npm run dev
 
 ## 🔐 Environment Variables
 
-### 🨅 Backend (`/backend`)
+### ⚙️ Backend (`/backend`)
 
 Create a `.env` file in the `/backend` directory based on `.env.sample`:
 
